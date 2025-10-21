@@ -6,7 +6,7 @@ const GAME_DURATION_MS = 40_000; // 40 seconds
 const TARGET_SIZE = 42; // px (moving mode)
 const REACTION_SIZE = 68; // px (larger target for reaction mode)
 const BASE_SPEED_PX_PER_SEC = 150; // starting speed
-const ACCEL_PER_SEC = 18; // acceleration (px/s^2)
+const ACCEL_PER_SEC = 8; // reduced acceleration (px/s^2)
 
 // Modes
 const MODES = {
@@ -36,7 +36,6 @@ const AimTrackingGame = () => {
   const elapsedRef = useRef(0);
   const hoveredMsRef = useRef(0);
   const hoveringRef = useRef(false);
-  const scoreRef = useRef(0);
   const accuracyRef = useRef(0);
   const dirRef = useRef(randomUnitVector());
   const posRef = useRef({ x: 80, y: 80 }); // top-left of target
@@ -49,13 +48,11 @@ const AimTrackingGame = () => {
   const changeDirEveryMsRef = useRef(900 + Math.random() * 900);
 
   // UI state
-  const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION_MS);
   const [accuracy, setAccuracy] = useState(0);
   const [targetPos, setTargetPos] = useState({ x: 80, y: 80 });
   const [particles, setParticles] = useState([]);
-  const [results, setResults] = useState(null); // { player, score }
-  const [top3, setTop3] = useState([]); // leaderboard for current mode
+  const [resultsShown, setResultsShown] = useState(false);
 
   // Derived mode parameters
   const modeParams = useMemo(() => {
@@ -116,7 +113,6 @@ const AimTrackingGame = () => {
   const startGame = useCallback(() => {
     elapsedRef.current = 0;
     hoveredMsRef.current = 0;
-    scoreRef.current = 0;
     speedRef.current = BASE_SPEED_PX_PER_SEC;
     dirRef.current = randomUnitVector();
     reactionTimerRef.current = 0;
@@ -124,10 +120,9 @@ const AimTrackingGame = () => {
     reactionHitsRef.current = 0;
     changeDirTimerRef.current = 0;
     changeDirEveryMsRef.current = 900 + Math.random() * 900;
-    setScore(0);
     setAccuracy(0);
     setTimeLeft(GAME_DURATION_MS);
-    setResults(null);
+    setResultsShown(false);
     centerWithinBounds();
     if (mode === MODES.REACTION) {
       // ensure first spawn counts for accuracy denominator
@@ -137,58 +132,7 @@ const AimTrackingGame = () => {
   }, [centerWithinBounds, mode, spawnReactionTarget]);
 
   // Finish game
-  // Persistence helpers (per mode)
-  const saveScoreToStorage = useCallback((entryMode, entry) => {
-    try {
-      const raw = localStorage.getItem("aimScoresByMode");
-      let scores = raw ? JSON.parse(raw) : { reaction: [], moving: [] };
-      if (!scores.reaction) scores.reaction = [];
-      if (!scores.moving) scores.moving = [];
-      const key = entryMode === MODES.REACTION ? "reaction" : "moving";
-      scores[key].push(entry);
-      localStorage.setItem("aimScoresByMode", JSON.stringify(scores));
-    } catch (_) {}
-  }, []);
-
-  const recomputeTop3 = useCallback(() => {
-    try {
-      const raw = localStorage.getItem("aimScoresByMode");
-      let scores = raw ? JSON.parse(raw) : { reaction: [], moving: [] };
-      const key = mode === MODES.REACTION ? "reaction" : "moving";
-      const arr = Array.isArray(scores[key]) ? scores[key] : [];
-      const sorted = [...arr].sort((a, b) => b.score - a.score).slice(0, 3);
-      setTop3(sorted);
-    } catch (_) {
-      setTop3([]);
-    }
-  }, [mode]);
-
-  // Download scores.json (per-mode format)
-  const downloadScores = useCallback(() => {
-    // Prefer per-mode structure
-    const raw = localStorage.getItem("aimScoresByMode");
-    let scoresByMode;
-    try {
-      if (raw) {
-        scoresByMode = JSON.parse(raw);
-      } else {
-        // Back-compat: migrate from old flat array if present
-        const legacy = JSON.parse(localStorage.getItem("aimScores") || "[]");
-        scoresByMode = { reaction: [], moving: [] };
-        legacy.forEach((r) => scoresByMode.moving.push(r));
-      }
-    } catch (_) {
-      scoresByMode = { reaction: [], moving: [] };
-    }
-    const blob = new Blob([JSON.stringify(scoresByMode, null, 2)], {
-      type: "application/json",
-    });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "scores.json";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }, []);
+  // Removed score/JSON persistence
 
   const finishGame = useCallback(() => {
     cancelAnimationFrame(animRef.current);
