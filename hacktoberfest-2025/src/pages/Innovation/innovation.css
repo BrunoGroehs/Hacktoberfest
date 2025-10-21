@@ -1,0 +1,727 @@
+/* Page layout */
+.innovation-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #8e24aa 0%, #ba68c8 50%, #ce93d8 100%);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+/* Theme toggle container */
+.theme-toggle-container {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 100;
+}
+
+/* The switch - the box around the slider */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+/* Hide default HTML checkbox */
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(128, 128, 128, 0.4);
+  transition: 0.3s ease;
+  border-radius: 30px;
+  border: 3px solid rgba(128, 128, 128, 0.8);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: #f5f5f5;
+  transition: 0.3s ease;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+input:checked + .slider {
+  background: rgba(187, 134, 252, 0.6);
+  border-color: rgba(187, 134, 252, 0.8);
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+  background: #bb86fc;
+}
+
+/* Hover effects */
+.theme-switch:hover .slider {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+input:checked + .slider:hover {
+  background: rgba(187, 134, 252, 0.7);
+}
+
+/* Focus styles for accessibility */
+.theme-switch input:focus + .slider {
+  outline: 3px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}
+
+/* Main content container */
+.innovation-main-container {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+/* Dark mode styles */
+.innovation-page.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.innovation-page.dark-mode .innovation-main-container {
+  background: #2d2d44;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.innovation-page.dark-mode .innovation-title {
+  color: #bb86fc;
+}
+
+.innovation-page.dark-mode .innovation-description {
+  color: #e0e0e0;
+}
+
+.innovation-page.dark-mode .innovation-subtitle {
+  color: #bb86fc;
+}
+
+.innovation-page.dark-mode .flip-card-front {
+  background: #3d3d5c;
+  color: #ffffff;
+  border-color: #4a4a6a;
+}
+
+/* Purple border when team member card is flipped in dark mode */
+.innovation-page.dark-mode .flip-card-inner.show-front .flip-card-front {
+  border-color: #bb86fc;
+}
+
+.innovation-page.dark-mode .flip-card-back {
+  background: linear-gradient(135deg, #bb86fc 0%, #9c64d6 100%);
+}
+
+.innovation-page.dark-mode .initiative-card .flip-card-front,
+.innovation-page.dark-mode .initiative-card .flip-card-back {
+  background: #3d3d5c;
+  border-color: #bb86fc;
+  color: #bb86fc;
+}
+
+.innovation-page.dark-mode .initiative-title {
+  color: #bb86fc;
+}
+
+.innovation-page.dark-mode .initiative-text {
+  color: #bb86fc;
+}
+
+/* Dark mode button styling */
+.innovation-page.dark-mode .initiative-button {
+  background: #bb86fc;
+  color: #2d2d44;
+  border-color: #bb86fc;
+}
+
+.innovation-page.dark-mode .initiative-button:hover {
+  background: #3d3d5c;
+  color: #bb86fc;
+  border-color: #bb86fc;
+  box-shadow: 0 4px 8px rgba(187, 134, 252, 0.3);
+}
+
+.innovation-page.dark-mode .initiative-button:focus {
+  outline: 3px solid rgba(187, 134, 252, 0.4);
+}
+
+.innovation-page.dark-mode .initiative-button:active {
+  box-shadow: 0 2px 4px rgba(187, 134, 252, 0.3);
+}
+
+.innovation-page.dark-mode .theme-toggle-container {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.innovation-page.dark-mode .slider {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.innovation-page.dark-mode .slider:before {
+  background: #ffffff;
+}
+
+.innovation-page.dark-mode input:checked + .slider {
+  background: rgba(187, 134, 252, 0.6);
+  border-color: rgba(187, 134, 252, 0.8);
+}
+
+.innovation-page.dark-mode input:checked + .slider:before {
+  background: #bb86fc;
+}
+
+.innovation-page.dark-mode .theme-switch:hover .slider {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.innovation-page.dark-mode input:checked + .slider:hover {
+  background: rgba(187, 134, 252, 0.7);
+}
+
+/* Fixed grid for 5 cards in a single row */
+.innovation-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+  justify-content: center;
+  justify-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+  .innovation-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .innovation-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .innovation-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.3rem;
+  }
+
+  .flip-card {
+    height: 200px; /* Reduce height on very small screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .innovation-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.2rem;
+  }
+
+  .flip-card {
+    height: 180px;
+  }
+
+  .flip-card-front h2,
+  .flip-card-back h2 {
+    font-size: 1rem;
+  }
+
+  .flip-card-front p,
+  .flip-card-back p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Flip card container */
+.flip-card {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  perspective: 1000px; /* Enables 3D flip */
+  cursor: pointer;
+}
+
+/* Keyboard focus for accessibility */
+.flip-card:focus-visible {
+  outline: 3px solid #0b74de; /* SAP blue-ish focus */
+  outline-offset: 4px;
+}
+
+/* Inner wrapper handling the flip */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+/* When toggled, rotate to show the front face */
+.flip-card-inner.show-front {
+  transform: rotateY(180deg);
+}
+
+/* Faces of the card */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+  font-family: "72", sans-serif;
+}
+
+/* Front is initially hidden (rotated), becomes visible after flip */
+.flip-card-front {
+  background: #ffffff;
+  color: #1a1a1a;
+  transform: rotateY(180deg);
+}
+
+/* Purple border when team member card is flipped */
+.flip-card-inner.show-front .flip-card-front {
+  border-color: #6a1b9a;
+}
+
+/* Back is visible initially */
+.flip-card-back {
+  background: linear-gradient(135deg, #6a1b9a 0%, #b39ddb 100%);
+  color: #ffffff;
+}
+
+/* Center initiatives description within the card front */
+.initiative-card .flip-card-front {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* title | description (centered) | button */
+}
+
+.initiative-card .flip-card-front .initiative-text {
+  align-self: center; /* vertical center within middle row */
+  justify-self: center; /* horizontal center */
+}
+
+/* Typography */
+.flip-card-front h2,
+.flip-card-back h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.flip-card-front p,
+.flip-card-back p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.innovation-title {
+  font-family: "72", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #6a1b9a; /* purple */
+  margin: 1rem 0 1.25rem 0; /* bottom spacing */
+  text-align: center;
+}
+
+.innovation-description {
+  font-family: "72", sans-serif;
+  font-size: 1.05rem;
+  color: #4a4a4a;
+  max-width: 56rem;
+  margin: 0 auto 1.25rem auto;
+  text-align: center;
+}
+
+.innovation-subtitle {
+  font-family: "72", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #6a1b9a;
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+}
+
+.initiatives-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    minmax(250px, 1fr)
+  ); /* 3 columns for layout */
+  gap: 1rem;
+  justify-content: center;
+  justify-items: center;
+  align-items: stretch;
+  max-width: 1000px;
+  margin: 0 auto 2rem auto;
+}
+
+/* Create a centered layout for the second row */
+.initiatives-grid {
+  grid-template-areas:
+    "card1 card2 card3"
+    ". card4 card5";
+}
+
+.initiatives-grid .initiative-card:nth-child(1) {
+  grid-area: card1;
+}
+.initiatives-grid .initiative-card:nth-child(2) {
+  grid-area: card2;
+}
+.initiatives-grid .initiative-card:nth-child(3) {
+  grid-area: card3;
+}
+.initiatives-grid .initiative-card:nth-child(4) {
+  grid-area: card4;
+}
+.initiatives-grid .initiative-card:nth-child(5) {
+  grid-area: card5;
+}
+
+/* Responsive adjustments for initiatives grid */
+@media (max-width: 900px) {
+  .initiatives-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: none; /* Reset grid areas */
+    max-width: 600px;
+  }
+
+  .initiatives-grid .initiative-card:nth-child(1),
+  .initiatives-grid .initiative-card:nth-child(2),
+  .initiatives-grid .initiative-card:nth-child(3),
+  .initiatives-grid .initiative-card:nth-child(4),
+  .initiatives-grid .initiative-card:nth-child(5) {
+    grid-area: auto; /* Reset grid areas */
+    grid-column: auto; /* Reset grid positioning on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .initiatives-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: none; /* Reset grid areas */
+    max-width: 300px;
+  }
+}
+
+/* Initiative cards styling */
+.initiative-card .flip-card-front,
+.initiative-card .flip-card-back {
+  background: #ffffff;
+  border: 2px solid #6a1b9a; /* purple outline */
+  color: #6a1b9a; /* purple text */
+}
+
+.initiative-card .flip-card-front {
+  background: #ffffff;
+  color: #6a1b9a;
+  border: 2px solid #6a1b9a;
+}
+
+.initiative-card .flip-card-back {
+  background: #ffffff;
+  color: #6a1b9a;
+  border: 2px solid #6a1b9a;
+}
+
+.initiative-title {
+  font-family: "72", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #6a1b9a;
+  margin: 0 0 0.5rem 0;
+}
+
+.initiative-text {
+  font-family: "72", sans-serif;
+  font-size: 0.95rem;
+  color: #6a1b9a; /* purple text for initiatives */
+  margin: 0 0 1rem 0;
+}
+
+/* Initiative button styling */
+.initiative-button {
+  background: #6a1b9a;
+  color: #ffffff;
+  border: 2px solid #6a1b9a;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-family: "72", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: auto;
+}
+
+.initiative-button:hover {
+  background: #ffffff;
+  color: #6a1b9a;
+  border-color: #6a1b9a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(106, 27, 154, 0.2);
+}
+
+.initiative-button:focus {
+  outline: 3px solid rgba(106, 27, 154, 0.3);
+  outline-offset: 2px;
+}
+
+.initiative-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(106, 27, 154, 0.2);
+}
+
+/* Team member image styling */
+.team-member-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.flip-card-back .team-member-image {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Dark mode image styling */
+.innovation-page.dark-mode .team-member-image {
+  border-color: #bb86fc;
+}
+
+.innovation-page.dark-mode .flip-card-back .team-member-image {
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Hover effect for images */
+.flip-card:hover .team-member-image {
+  transform: scale(1.05);
+}
+
+/* Carousel styles for initiatives */
+.initiatives-carousel {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto 2rem auto;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  flex: 1;
+  outline: none; /* we handle focus styles on buttons/dots */
+  background: transparent;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease;
+  width: 100%;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.carousel-btn {
+  position: relative;
+  background: #6a1b9a;
+  color: #ffffff;
+  border: 2px solid #6a1b9a;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0; /* hide text node, we render icon via pseudo-element for perfect centering */
+}
+
+/* Render chevron via pseudo-element centered */
+.carousel-btn::after {
+  content: "";
+  font-size: 24px;
+  line-height: 1;
+  color: inherit;
+}
+
+.carousel-btn.prev::after {
+  content: "‹";
+}
+
+.carousel-btn.next::after {
+  content: "›";
+}
+
+.carousel-btn:hover {
+  background: #ffffff;
+  color: #6a1b9a;
+  border-color: #6a1b9a;
+  box-shadow: 0 4px 8px rgba(106, 27, 154, 0.2);
+}
+
+.carousel-btn:focus {
+  outline: 3px solid rgba(106, 27, 154, 0.3);
+  outline-offset: 2px;
+}
+
+.carousel-btn.prev,
+.carousel-btn.next {
+  flex: 0 0 auto;
+}
+
+.carousel-btn.prev {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.carousel-btn.next {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d1c4e9; /* light purple */
+  border: 1px solid #6a1b9a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.carousel-dots .dot:hover {
+  transform: scale(1.1);
+}
+
+.carousel-dots .dot.active {
+  background: #6a1b9a;
+}
+
+/* Dark mode variants for carousel */
+.innovation-page.dark-mode .carousel-btn {
+  background: #bb86fc;
+  color: #2d2d44;
+  border-color: #bb86fc;
+}
+
+.innovation-page.dark-mode .carousel-btn:hover {
+  background: #3d3d5c;
+  color: #bb86fc;
+  border-color: #bb86fc;
+  box-shadow: 0 4px 8px rgba(187, 134, 252, 0.3);
+}
+
+.innovation-page.dark-mode .carousel-dots .dot {
+  background: #3d3d5c;
+  border-color: #bb86fc;
+}
+
+.innovation-page.dark-mode .carousel-dots .dot.active {
+  background: #bb86fc;
+}
+
+/* Our Work carousel image styling */
+.work-image {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 2px solid #6a1b9a;
+  background: #ffffff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive adjustments for work images */
+@media (max-width: 900px) {
+  .work-image {
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 600px) {
+  .work-image {
+    max-height: 280px;
+  }
+}
+
+/* Dark mode variants for work images */
+.innovation-page.dark-mode .work-image {
+  background: #2d2d44;
+  border-color: #bb86fc;
+  box-shadow: 0 6px 14px rgba(187, 134, 252, 0.2);
+}

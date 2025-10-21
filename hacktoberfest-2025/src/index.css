@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* Fontes SAP 72 */
+@font-face {
+  font-family: "72";
+  src: url("/fonts/72Brand-Regular.woff2") format("woff2"),
+    url("/fonts/72Brand-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "72";
+  src: url("/fonts/72Brand-Medium.woff2") format("woff2"),
+    url("/fonts/72Brand-Medium.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "72";
+  src: url("/fonts/72Brand-Bold.woff2") format("woff2"),
+    url("/fonts/72Brand-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Old London";
+  src: url("/fonts/Old-London-V2.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.shellbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  width: 100%;
+  height: 60px;
+  padding: 0 16px;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.shell-bar__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.shell-bar__home-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  height: 24px;
+  object-fit: contain;
+}
+
+.shell-bar__center {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.shell-bar__title1 {
+  margin-right: -0.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "72", sans-serif;
+  pointer-events: auto;
+  background: #002a86;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.shell-bar__title2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: "Old London", sans-serif;
+  pointer-events: auto;
+  background: #1b90ff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.container-app {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  position: relative;
+  background-color: #ffffff;
+  font-family: "72", sans-serif;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1rem 1.5rem;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.home-title {
+  font-family: "72", sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #002a86;
+  margin: 1.5rem 0 0 0;
+  padding: 0;
+  align-self: stretch;
+}
+
+.pages-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 220rem;
+  margin: 0 auto;
+  align-self: stretch;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+
+  /* Allow horizontal scrolling on extremely small viewports instead of breaking layout */
+  overflow-x: auto;
+}
+
+/* Prevent overflow of grid items */
+.pages-links > * {
+  min-width: 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #d8d8d8;
+  width: 17rem;
+  min-width: 0;
+  min-height: 8rem;
+  height: auto;
+
+  border-radius: 8px;
+  padding: 1rem;
+  gap: 6px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none; /* links like cards */
+  color: inherit;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-title {
+  font-family: "72", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #002a86;
+  overflow-wrap: anywhere;
+}
+
+.card-footer {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-family: "72", sans-serif;
+  color: #999999;
+  overflow-wrap: anywhere;
+}

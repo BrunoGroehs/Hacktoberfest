@@ -1,0 +1,64 @@
+_schema-version: 3.3.0
+ID: hacktoberfest-2025
+version: 1.0.0
+description: "2025 HacktoberFest."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm run build
+
+modules:
+  - name: hacktoberfest-ui
+    type: staticfile
+    path: dist/
+    provides:
+      - name: app
+        properties:
+          app-url: ${default-url}
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: hacktoberfest-auth
+
+  - name: hacktoberfest-route
+    type: approuter.nodejs
+    path: router/
+    parameters:
+      host: hacktoberfest
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: app
+        group: destinations
+        properties:
+          name: app # must be used in xs-app.json as well
+          url: ~{app-url}
+          forwardAuthToken: true
+      - name: hacktoberfest-auth
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+
+resources:
+  - name: hacktoberfest-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: xs-hacktoberfest-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          redirect-uris:
+            - https://~{app-api/app-uri}/**
+            - http://localhost:5000/**
+    requires:
+      - name: app-api
